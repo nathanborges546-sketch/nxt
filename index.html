@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Prevent theme flash: apply theme before first paint -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme") || localStorage.getItem("nxt-theme");
+          var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var isDark = saved ? saved === "dark" : prefersDark;
+
+          if (isDark) document.documentElement.classList.add("dark");
+          else document.documentElement.classList.remove("dark");
+
+          // Disable color transitions during initial paint
+          document.documentElement.classList.add("no-transition");
+        } catch (e) {
+          // If storage is blocked, fall back to system preference only
+          if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add("dark");
+          }
+          document.documentElement.classList.add("no-transition");
+        }
+      })();
+    </script>
+    <style>
+      /* Force correct background from frame 1 */
+      html,
+      body {
+        background-color: #ffffff;
+      }
+      html.dark,
+      html.dark body {
+        /* ~#0B0D10 in HSL */
+        background-color: hsl(220 19% 5%);
+      }
+
+      /* Disable only the transitions that cause theme flashing */
+      html.no-transition * {
+        transition-property: background-color, color, border-color, fill, stroke !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+    </style>
+    <!-- TODO: Set the document title to the name of your application -->
+    <title>Lovable App</title>
+    <meta name="description" content="Lovable Generated Project" />
+    <meta name="author" content="Lovable" />
+
+    <!-- TODO: Update og:title to match your application name -->
+    <meta property="og:title" content="Lovable App" />
+    <meta property="og:description" content="Lovable Generated Project" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Lovable" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Re-enable transitions after first paint
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          document.documentElement.classList.remove("no-transition");
+        });
+      });
+    </script>
+  </body>
+</html>
