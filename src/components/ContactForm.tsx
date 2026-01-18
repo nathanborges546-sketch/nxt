@@ -51,6 +51,33 @@ export function ContactForm() {
     setIsSubmitting(true);
     try {
       const response = await fetch("https://formspree.io/f/xpwzgkqr", {
+        <form action="https://formsubmit.co/SEUEMAIL@EMAIL.COM" method="POST">
+  <input type="hidden" name="_subject" value="New project request — NXT" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_captcha" value="false" />
+
+  <!-- (Opcional) redirecionar após enviar -->
+  <!-- <input type="hidden" name="_next" value="https://nxt-ten-pi.vercel.app/thanks" /> -->
+
+  <input type="text" name="name" placeholder="Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+
+  <textarea
+    name="message"
+    placeholder="What are you looking to build? Goals, pages, features, and any links."
+    required
+  ></textarea>
+
+  <select name="budget" required>
+    <option value="" disabled selected>Estimated budget</option>
+    <option value="Under $1k">Under $1k</option>
+    <option value="$1k–$3k">$1k–$3k</option>
+    <option value="$3k–$5k">$3k–$5k</option>
+    <option value="$5k+">$5k+</option>
+  </select>
+
+  <button type="submit">Send request</button>
+</form>
         method: "POST",
         headers: {
           "Content-Type": "application/json",
